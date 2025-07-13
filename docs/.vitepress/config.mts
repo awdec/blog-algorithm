@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/docs/",
+  base: "/blog-algorithm/",
   head: [['link', { rel: 'icon', href: '/docs/logo.ico' }]],
   title: "LargeRice16pro's Blog",
   description: "A VitePress Site",
