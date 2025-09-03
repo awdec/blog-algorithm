@@ -14,6 +14,7 @@ export default defineConfig({
 
 
   title: "LargeRice16pro's Blog",
+  
   description: "A VitePress Site",
 
 
