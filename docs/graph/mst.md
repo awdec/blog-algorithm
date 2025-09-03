@@ -124,3 +124,92 @@ $x,y$ 最小瓶颈路指 $x,y$ 的所有路径中最大边权最小的路径。
 在 Kruskal 运行过程中，对于树边 $(u,v,w)$，令合并时 $u$ 的根节点为 $x$，$v$ 的根节点为 $v$，那么新建节点 $t$，$a_t=w$，连边 $(t,x),(t,y)$，形成的树即为 Kruskal 重构树。
 
 $x,y$ 的最小瓶颈路即为最小生成树的 Kruskal 重构树上 $x,y$ 的 LCA 的权值。
+
+
+## 最小树形图
+
+最小树形图是在带权有向图上的最小叶向有向生成树。
+
+### 朱刘算法
+
+```cpp
+int zl(int n, int r) {
+    int res = 0;
+    while (1) {
+        vector<node> pre(n + 1);
+        for (int i = 1; i <= n; i++)
+            pre[i].w = inf;
+        for (auto u : edge) {
+            if (u.v == r)
+                continue;
+            if (u.w <= pre[u.v].w) {
+                pre[u.v] = {u.u, u.w};
+            }
+        }
+        for (int i = 1; i <= n; i++)
+            if (i != r)
+                res += pre[i].w;
+        stack<int> q;
+        vector<bool> vis(n + 1);
+        vector<int> num(n + 1), col(n + 1);
+        int id = 0;
+        for (int i = 1; i <= n; i++) {
+            int now = i;
+            if (col[now] || i == r)
+                continue;
+            while (now && !vis[now] && !col[now]) {
+                q.push(now);
+                vis[now] = 1;
+                now = pre[now].v;
+            }
+            if (vis[now]) {
+                id++;
+                while (q.top() != now) {
+                    int cur = q.top();
+                    q.pop();
+                    num[cur] = id;
+                    vis[cur] = 0;
+                    col[cur] = 2;
+                }
+                q.pop();
+                num[now] = id;
+                vis[now] = 0;
+                col[now] = 2;
+            }
+            while (q.size()) {
+                int cur = q.top();
+                q.pop();
+                num[cur] = ++id;
+                vis[cur] = 0;
+                col[cur] = 1;
+            }
+        }
+        bool flag = 0;
+        for (int i = 1; i <= n; i++)
+            if (col[i] == 2) {
+                flag = 1;
+                break;
+            }
+        if (!flag)
+            break;
+        vector<Edge> tmp;
+        for (auto u : edge) {
+            if (num[u.u] == num[u.v])
+                continue;
+            tmp.push_back({num[u.u], num[u.v], u.w - pre[u.v].w});
+        }
+        edge = tmp;
+        r = num[r];
+        n = id;
+    }
+    return res;
+}
+```
+
+时间复杂度：$O(nm)$。
+
+
+左偏树优化。
+
+
+时间复杂度：$O(m+n\log n)$。

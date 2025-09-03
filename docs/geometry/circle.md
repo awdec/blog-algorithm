@@ -86,6 +86,8 @@
 - $\cos\alpha=\dfrac{r}{d}$
 - 向量伸缩、旋转
 
+<center><img src="/圆1.png" alt="" width="60%"></center>
+
 ### 两圆的公切线
 
 - 相离：$4$ 条
@@ -98,9 +100,13 @@
 
 ​$\cos\alpha=\dfrac{r_1-r_2}{d}$
 
+<center><img src="/圆2.png" alt="" width="60%"></center>
+
 #### 内公切线
 
 ​$\cos\alpha=\dfrac{r_1+r_2}{d}$
+
+<center><img src="/圆3.png" alt="" width="60%"></center>
 
 ## 圆的反演
 

@@ -138,7 +138,16 @@ $$|\frac{\sum\limits_{i=0}^{n-1}\vec{P_i}\times\vec{P_{(i+1)\bmod n}}}{2}|$$
 ​遵循非零规则：当回转次数为 0 时，点在曲线外部。
 
 - 一种实现方法：计算相邻两边夹角（有方向）的和。
+
+<center><img src="/计算几何基础1.png" alt="" width="80%"></center>
+
+<center><img src="/计算几何基础2.png" alt="" width="80%"></center>
+
 - 另一种实现方法：从该点引出一条射线，每经过一条自上而下穿过该射线的边，贡献 -1；每经过一条自下而上穿过该射线的边，贡献 +1，可以做到无精度误差。
+
+<center><img src="/计算几何基础3.png" alt="" width="80%"></center>
+
+<center><img src="/计算几何基础4.png" alt="" width="80%"></center>
 
 边界情况：
 - 点在多边形上，对于每条边特判。
