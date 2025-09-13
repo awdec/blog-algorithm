@@ -33,7 +33,7 @@
 
 #### 预处理 $1\sim n$ 模质数 $p$ 的逆元：
 
-$i^{-1}\equiv (p-\lfloor\dfrac{p}{i}\rfloor)\times (i\bmod p)^{-1}\pmod p$
+$i^{-1}\equiv (p-\lfloor\dfrac{p}{i}\rfloor)\times (p\bmod i)^{-1}\pmod p$
 
 线性递推即可，$O(n)$。
 

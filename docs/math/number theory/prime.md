@@ -75,7 +75,8 @@ bool is_prime(int n) {
         s++;
     }
     vector<int> p = {2, 7, 61}; // int32
-    // vector<int> p = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}; int64
+    // int64
+    // vector<int> p = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
     // int128 直接随 k 次吧
     for (auto u : p) {
         int a = (u % (n - 2)) + 2;
@@ -177,15 +178,14 @@ struct Pollard_Rho {
 
 ```cpp
 void ai(int n) {
-    is_prime.set();
-    is_prime[0] = is_prime[1] = 0;
+    not_prime[0] = not_prime[1] = 1;
     for (int i = 4; i <= n; i += 2)
-        is_prime[i] = 0;
+        not_prime[i] = 1;
     for (int i = 3; i <= n / i; i++) {
-        if (!is_prime[i])
+        if (not_prime[i])
             continue;
         for (int j = i * i; j <= n; j += 2 * i)
-            is_prime[j] = 0;
+            not_prime[j] = 1;
     }
 }
 ```

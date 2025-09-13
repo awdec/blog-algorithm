@@ -186,6 +186,22 @@ int solve(int n) { // 求解 n 的二次剩余
 
 ## 多项式除法
 
+```cpp
+pair<vector<int>, vector<int>> divide(vector<int> a, vector<int> b) {
+    int n = a.size(), m = b.size();
+    auto ar = a, br = b;
+    reverse(ar.begin(), ar.end());
+    reverse(br.begin(), br.end());
+    ar.resize(n - m + 1), br.resize(n - m + 1);
+    auto now = inv(br);
+    auto cr = mul(ar, now);
+    cr.resize(n - m + 1);
+    reverse(cr.begin(), cr.end());
+    auto cur = subtract(a, mul(b, cr));
+    return {cr, cur};
+}
+```
+
 ## 多项式 ln
 
 保证 $a_0=1$。

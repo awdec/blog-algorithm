@@ -40,9 +40,9 @@ export default defineConfig({
       { text: '图论', link: '/graph/home'},
       { text: '多项式', link: '/poly/home'},
       { text: '计算几何', link: '/geometry/home'},
-      { text: '动态规划', link: '/'},
-      { text: '网络流', link: '/'},
-      { text: '杂项', link: '/'},
+      { text: '动态规划', link: '/dp/home'},
+      { text: '网络流', link: '/flow/home'},
+      { text: '杂项', link: '/other/home'},
     ],
 
     sidebar: {
@@ -66,7 +66,7 @@ export default defineConfig({
             { text: '线性基', link: '/data structure/xor-base'},
             { text: '分块', link: '/data structure/block-balance'},
             { text: 'cdq 分治', link: '/data structure/cdq'},
-            { text: '整体二分', link: '/data structure/dfs'}
+            { text: '整体二分', link: '/data structure/dfs'},
           ]
         }
       ],
@@ -97,7 +97,7 @@ export default defineConfig({
             { text: 'Gcd', link: '/math/number theory/gcd'},
             { text: '模', link: '/math/number theory/mod1'},
             { text: '同余', link: '/math/number theory/mod'},
-            { text: '反演', link: '/math/number theory/transfer'},
+            { text: 'Dirichlet 前缀和', link: '/math/number theory/dirichlet'},
             { text: '筛法', link: '/math/number theory/sieve'},
           ]
         }
@@ -108,6 +108,8 @@ export default defineConfig({
           text: '组合数学',
           items: [
             { text: '组合数列', link: '/math/combinatorial mathematics/sequence'},
+            { text: '反演', link: '/math/combinatorial mathematics/transfer'},
+            
           ]
         }
       ],
@@ -117,6 +119,18 @@ export default defineConfig({
           text: "杂项",
           items: [
             
+          ]
+        }
+      ],
+
+      '/other':[
+        {
+          text: "杂项",
+          items: [
+            {text: '树同构', link: '/other/tree-hash'},
+            {text: '哈希', link: '/other/hashing'},
+            {text: '优秀的编码习惯', link: '/other/constant'},
+            {text: '范数', link: '/other/distance'},
           ]
         }
       ],
@@ -165,15 +179,15 @@ export default defineConfig({
         }
       ],
 
-      '/sundry' :[
-        {
-          text: '杂项',
-          items:[
-            { text: '/hashing', link: '/'},
-            { text: '/constant', link: '/'},
-          ]
-        }
-      ]
+      // '/sundry' :[
+      //   {
+      //     text: '杂项',
+      //     items:[
+      //       { text: '/hashing', link: '/'},
+      //       { text: '/constant', link: '/'},
+      //     ]
+      //   }
+      // ]
 
     },
 

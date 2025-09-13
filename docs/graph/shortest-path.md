@@ -210,33 +210,6 @@ for (int k = 1; k <= n; k++) {
 
 时间复杂度：$O(n)$。
 
-```cpp
-vector<int> bfs01(int s, int n) {
-    vector<int> dis(n + 1, inf);
-    vector<bool> vis(n + 1);
-    dis[s] = 0;
-    deque<int> q;
-    q.push(s);
-    while (q.size()) {
-        auto now = q.front();
-        q.pop_front();
-        if (vis[now])
-            continue;
-        vis[now] = 1;
-        for (auto [v, w] : p[now]) {
-            if (dis[v] > dis[now] + w) {
-                dis[v] = dis[now] + w;
-                if (w)
-                    q.push_back(v);
-                else
-                    q.push_front(v);
-            }
-        }
-    }
-    return dis;
-}
-```
-
 ## 差分约束
 
 差分约束用于解决 $n$ 元一次不等式组问题，且要求 $n$ 元一次不等式是形如 $x_{a_i}\le x_{b_i}+c_i$。
