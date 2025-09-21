@@ -162,6 +162,8 @@ struct cat_segment {
 
 ​李超树仅支持单点询问，将一路递归经过的标记合并起来即可（即用覆盖了 $x$ 的区间上的“主导线段”更新答案）。
 
+下文默认维护最大值。
+
 ​考虑“主导线段”有什么性质，对于另一条线段 $a$，若 $a$ 不在 $mid$ 处的 $y$ 大于“主导线段”（也就是 $a$ 是非主导线段）那么 $a$ 一定会要么在 $[mid+1,r]$ 上完全劣于“主导线段”，要么在 $[l,mid]$ 上完全劣于主导线段。若询问的 $x$ 在 $a$ 完全劣于的区间，那么显然 $a$ 不会成为答案；反之 $a$ 也会递归另一边区间，然后同理。所以若线段不是某一区间的“主导线段”那么它一定不会成为答案。
 
 ​询问只涉及完全覆盖 $x$ 的区间，时间复杂度：$O(\log n)$。
@@ -337,6 +339,8 @@ int query(int p, int l, int r, int x, int y) {
 ```cpp
 node tr[N << 5];
 int idx, root[N];
+void up(Node &t, Node l, Node r) { t.sum = l.sum + r.sum; }
+void push_up(int k) { up(tr[k], tr[ls(k)], tr[rs(k)]); }
 void build(int &p, int l, int r, vector<int> &a) {
     int mid = l + r >> 1;
     if (!p)
@@ -348,18 +352,20 @@ void build(int &p, int l, int r, vector<int> &a) {
     build(ls(p), l, mid, a);
     build(rs(p), mid + 1, r, a);
 }
-void update(int &p, int &q, int l, int r, int x, int v) {
+void update(int p, int &q, int l, int r, int x) {
     int mid = l + r >> 1;
     if (!q)
         q = ++idx;
+    tr[q].sum = tr[p].sum;
     if (l == r) {
-        tr[q].v = v;
+        tr[q].sum ++;
         return;
     }
     if (x <= mid)
         rs(q) = rs(p), update(ls(p), ls(q), l, mid, x, v);
     else
         ls(q) = ls(p), update(rs(p), rs(q), mid + 1, r, x, v);
+    push_up(q);
 }
 int query(int p, int l, int r, int x) {
     int mid = l + r >> 1;

@@ -32,6 +32,7 @@
 |容器|1e6 次操作 `int`|5e6 次操作 `int`|空的 5e6 个 不使用|5e6 个，每个一个元素|
 |---|---|---|---|---|
 |`vector`|`psuh_back` 17ms 5MB|`push_back` 20ms 33MB|10ms <1MB（因为 `vector` 没有被使用，所以被编译器优化了，实际占用 120 MB 左右）|`push_back` 300ms 267MB|
+|`vector`|`reserve` 7ms 4MB|`reserve` 12ms 19MB|/|/|
 |`deque`|`push_back` 7ms 4MB|`push_back` 20ms 20MB|>251ms >512MB|/|
 |`list`|`push_back` 46ms 31MB |`push_back`  208ms 153MB | 48ms 115MB | `push_back` 254ms 268MB |
 |`priority_queue`|`push` 33ms 5MB|`push`  172ms 32 MB|60ms 153MB|`push`  272ms 306MB |

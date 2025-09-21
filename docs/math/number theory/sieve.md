@@ -83,4 +83,34 @@ $$T(n)=H(n)+\sum\limits_{d\mid n}^n G(d)T(d)$$
 
 特别地，若求一次 $S(n)$，容易发现状态只有 $O(\sqrt n)$ 个，分为 $[1,\sqrt n]$ 和 $(\sqrt n,n]$ 分别储存即可。
 
+
+```cpp
+int sum_euler(int n) {
+    if (n <= 2e6)
+        return euler[n];
+    if (mem1.count(n))
+        return mem1[n];
+    int res = (1 + n) * n / 2;
+    for (int i = 2, j; i <= n;) {
+        j = n / (n / i);
+        res -= (j - i + 1) * sum1(n / i);
+        i = j + 1;
+    }
+    return mem1[n] = res;
+}
+int sum_mu(int n) {
+    if (n <= 2e6)
+        return mu[n];
+    if (mem2.count(n))
+        return mem2[n];
+    int res = 1;
+    for (int i = 2, j; i <= n;) {
+        j = n / (n / i);
+        res -= (j - i + 1) * sum2(n / i);
+        i = j + 1;
+    }
+    return mem2[n] = res;
+}
+```
+
 ## min_25 筛

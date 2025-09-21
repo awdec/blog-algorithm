@@ -179,6 +179,28 @@ export default defineConfig({
         }
       ],
 
+      '/dp':[
+        {
+          text: '动态规划',
+          items:[
+            { text: '线性 dp', link: '/'},
+            { text: '背包 dp', link: '/'},
+            { text: '区间 dp', link: '/'},
+            { text: '状态机 dp', link: '/'},
+            { text: '状压 dp', link: '/'},
+            { text: 'SOS dp', link: '/'},
+            { text: '矩阵 dp', link: '/'},
+            { text: '数位 dp', link: '/'},
+            { text: '树形 dp', link: '/'},
+            { text: '数据结构优化 dp', link: '/'},
+            { text: '斜率优化 dp', link: '/'},
+            { text: '决策单调性 dp', link: '/'},
+            { text: '插头 dp', link: '/'},
+          ]
+        }
+        
+      ],
+
       // '/sundry' :[
       //   {
       //     text: '杂项',
