@@ -98,21 +98,21 @@ void dfs1(int x) { // 将 x 子树的信息和已有信息合并，计算贡献
         dfs1(u.v);
     }
 }
-void dfs2(int x) { // 删除 x 子树的信息
+void dfs2(int x) { // 添加 x 子树的信息
     for (auto u : p[x]) {
         if (u.v == fa[x])
             continue;
         dfs2(u.v);
     }
 }
-void dfs(int x, bool y) {
+void dfs0(int x, bool y) {
     for (auto u : p[x]) { // 优先递归轻儿子
         if (u.v == fa[x] || u.v == son[x])
             continue;
-        dfs(u.v, 0);
+        dfs0(u.v, 0);
     }
     if (son[x]) {
-        dfs(son[x], 1);
+        dfs0(son[x], 1);
     }
 
     // 暴力遍历轻子树
@@ -130,5 +130,5 @@ void dfs(int x, bool y) {
     }
 }
 dfs(1, 0);
-dfs(1, 1);
+dfs0(1, 1);
 ```
