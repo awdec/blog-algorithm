@@ -9,11 +9,11 @@ export default defineConfig({
   base: "/blog-algorithm/",
   
   head: [
-    ['link', { rel: 'icon', href: '/docs/logo.ico' }]
+    ['link', { rel: 'icon', href: '/docs/logo2.ico' }]
   ],
 
 
-  title: "LargeRice16pro's Blog",
+  title: "Awdec's Blog",
   
   description: "A VitePress Site",
 
@@ -22,7 +22,7 @@ export default defineConfig({
   themeConfig: {
     outlineTitle: '目录',
     outline: [2,6],
-    logo: '/logo.png',
+    logo: '/awdec.png',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/' },
