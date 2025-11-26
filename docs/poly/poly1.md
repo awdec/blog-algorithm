@@ -10,6 +10,42 @@
 
 ## FFT
 
+```cpp
+const ldb pi = acos(-1.0);
+struct Complex {
+    ldb x, y;
+    Complex operator+(const Complex &t) const { return {x + t.x, y + t.y}; }
+    Complex operator-(const Complex &t) const { return {x - t.x, y - t.y}; }
+    Complex operator*(const Complex &t) const {
+        return {x * t.x - y * t.y, x * t.y + y * t.x};
+    }
+};
+int rev[1 << 21];
+Complex g[1 << 21][2];
+void init(int n) { // 预处理 n 到大于卷积后的最高位的 2 的幂次，
+    for (int mid = 1; mid < n; mid <<= 1) {
+        g[mid][0] = Complex({cos(pi / mid), -sin(pi / mid)});
+        g[mid][1] = Complex({cos(pi / mid), sin(pi / mid)});
+    }
+}
+void fft(vector<Complex> &a, int sign, int tot) {
+    for (int i = 0; i < tot; i++)
+        if (i < rev[i])
+            swap(a[i], a[rev[i]]);
+
+    for (int mid = 1; mid < tot; mid <<= 1) {
+        auto w1 = g[mid][(sign + 1) / 2];
+        for (int i = 0; i < tot; i += (mid << 1)) {
+            auto wk = Complex({1, 0});
+            for (int j = 0; j < mid; j++, wk = wk * w1) {
+                auto x = a[i + j], y = wk * a[i + j + mid];
+                a[i + j] = x + y, a[i + j + mid] = x - y;
+            }
+        }
+    }
+}
+```
+
 ## NTT
 
 常见 NTT 模数及原根：
@@ -20,10 +56,10 @@
 - $167772161=5\times 2^{25}+1,g=3$
 
 ```cpp
-void init(int n) { // 预处理 n 不小于到卷积后的最高位的 2 的幂次
+void init(int n) { // 预处理 n 到大于卷积后的最高位的 2 的幂次
     for (int mid = 1; mid < n; mid <<= 1) {
-        gg[mid << 1] = qz(G, (mod - 1) / (mid << 1));
-        inv_gg[mid << 1] = qz(inv_G, (mod - 1) / (mid << 1));
+        g[mid << 1] = qz(G, (mod - 1) / (mid << 1));
+        inv_g[mid << 1] = qz(inv_G, (mod - 1) / (mid << 1));
     }
 }
 void ntt(vector<int> &a, int sign, int tot) {
@@ -31,7 +67,7 @@ void ntt(vector<int> &a, int sign, int tot) {
         if (i < rev[i])
             swap(a[i], a[rev[i]]);
     for (int mid = 1; mid < tot; mid <<= 1) {
-        int g1 = ~sign ? gg[mid << 1] : inv_gg[mid << 1];
+        int g1 = ~sign ? g[mid << 1] : inv_g[mid << 1];
         for (int i = 0; i < tot; i += (mid << 1)) {
             int gk = 1;
             for (int j = 0; j < mid; j++, gk = gk * g1 % mod) {
@@ -66,6 +102,35 @@ vector<int> mul(vector<int> a, vector<int> b) {
         c[i] = a[i] * b[i] % mod;
     ntt(c, -1, tot);
     c.resize(n + m - 1);
+    return c;
+}
+```
+
+FFT 处理多项式乘法时，特殊处理：
+
+```cpp
+vector<int> mul(vector<int> a, vector<int> b) {
+    vector<Complex> A(a.size()), B(b.size());
+    for (int i = 0; i < A.size(); i++)
+        A[i].x = a[i];
+    for (int i = 0; i < B.size(); i++)
+        B[i].x = b[i];
+
+    int tot = 0, bit = 0;
+    int n = A.size(), m = B.size();
+    while ((1 << bit) <= n - 1 + m - 1)
+        bit++;
+    tot = 1 << bit;
+    A.resize(tot), B.resize(tot);
+    for (int i = 0; i < tot; i++)
+        rev[i] = (rev[i >> 1] >> 1) | ((i & 1) * (tot >> 1));
+    fft(A, 1, tot), fft(B, 1, tot);
+    for (int i = 0; i < tot; i++)
+        A[i] = A[i] * B[i];
+    fft(A, -1, tot);
+    vector<int> c(n + m - 1);
+    for (int i = 0; i < n + m - 1; i++)
+        c[i] = (int)(A[i].x / tot + 0.5);
     return c;
 }
 ```

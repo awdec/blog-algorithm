@@ -39,6 +39,7 @@ int access(int x) {
     for (; x; y = x, x = tree.tr[x].fa) {
         tree.splay(x);
         tree.rs(x) = y;
+        tree.push_up(x);
     }
     tree.splay(z);
     return y;
@@ -153,15 +154,16 @@ struct node {
 struct Splay {
     node tr[N];
     vector<int> q;
-    void init(int n, vector<int> &a) {
-        int i;
-        For(i, 1, n) tr[i].v = a[i];
+    void init(int n, vector<int> &a) { // 每个节点作为孤立点初始化
+        for (int i = 1; i <= n; i++) {
+            tree.tr[i].sum = tree.tr[i].v = tree.tr[i].sz = 1;
+        }
     }
     void rev(int p) {
         swap(ls(p), rs(p));
         tr[p].rev ^= 1;
     }
-    void push_up(int p) {
+    void push_up(int p) { // 以具体 push_up 维护信息为准
         tr[p].sum = (tr[ls(p)].sum ^ tr[rs(p)].sum ^ tr[p].v);
     }
     void push_down(int p) {

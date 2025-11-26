@@ -249,6 +249,8 @@ for (int i = 1; i <= n; i++)
 
 有 $n$ 个命题 $c_i=a_{x_i}\lor a_{y_i}$，$a,b\in\{0,1\}$，求解 $c_i$ 全为真的解。
 
+2-sat 建边的本质是 $a\rightarrow b$ 的蕴含式，所以不局限于 $a\lor b$。
+
 ### 求解：
 
 根据离散数学基础，易得：$a\lor b=\lnot a\rightarrow b\land\lnot b\rightarrow a$。

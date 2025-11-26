@@ -10,6 +10,8 @@
 
 ​普通线段树是一棵二叉树，zkw 线段树是一棵满二叉树，同样采用堆式建树。因为其满二叉树的性质，使得它能容易地获取叶子节点编号，也可以通过位运算简单地获取区间。具有代码短，常数小的优点。
 
+了解即可，实用价值不大。
+
 ​以维护加法为例。
 
 ### 建树：
@@ -209,6 +211,7 @@ void update(int &p, int l, int r, int id) {
     if (line[id].val(mid) > line[tr[p].id].val(mid)) {
         swap(tr[p].id, id);
     }
+    if(l == r) return ;
     if (line[id].k < line[tr[p].id].k) {
         update(ls(p), l, mid, id);
     } else if (line[id].k > line[tr[p].id].k) {

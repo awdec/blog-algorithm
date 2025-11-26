@@ -35,7 +35,7 @@ vector<vector<int>> manacher(string &s) {
     int m = 2 * n + 2;
     int idx0 = 0, idx1 = 0;
     vector<int> A(m + 1);
-    vector<int> len0(n + 1), len1(n + 1);
+    vector<int> len0(n + 1), len1(n + 1); // 这里为了保持长度一致，len0 实际上多了一个末尾的 0，len0 的有效元素应为 len0[1] 到 len1[n - 1]
     int r = 0, mid;
     for (int i = 1; i < m; i++) {
         if (i < r)

@@ -131,6 +131,7 @@ export default defineConfig({
             {text: '哈希', link: '/other/hashing'},
             {text: '优秀的编码习惯', link: '/other/constant'},
             {text: '范数', link: '/other/distance'},
+            {text: '一些有趣的库函数', link: '/other/functions'},
           ]
         }
       ],
@@ -145,6 +146,7 @@ export default defineConfig({
             { text: 'Tarjan', link: '/graph/tarjan'},
             { text: '环计数问题', link: '/graph/circle'},
             { text: '欧拉路', link: '/graph/euler'},
+            { text: 'LCA', link: '/graph/lca'},
           ]
         }
       ],

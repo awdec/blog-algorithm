@@ -24,3 +24,22 @@ for (int i = 2; i <= n; i++) {
     }
 }
 ```
+
+Dirichlet 后缀和：
+
+对于 $a_i$，求解 $b_i=\sum\limits_{i\mid k}a_k$
+
+稍微变形一下：
+
+```cpp
+bitset<N> not_prime;
+not_prime[1] = 1;
+for (int i = 2; i <= n; i++) {
+    if (not_prime[i])
+        continue;
+    for (int j = i; j <= n; j += i) {
+        a[j / i] += a[j];
+        not_prime[j] = 1;
+    }
+}
+```
