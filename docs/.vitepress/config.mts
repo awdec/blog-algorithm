@@ -186,7 +186,7 @@ export default defineConfig({
           text: '动态规划',
           items:[
             { text: '线性 dp', link: '/'},
-            { text: '背包 dp', link: '/'},
+            { text: '背包 dp', link: '/dp/bag'},
             { text: '区间 dp', link: '/'},
             { text: '状态机 dp', link: '/'},
             { text: '状压 dp', link: '/'},

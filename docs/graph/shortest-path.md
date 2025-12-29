@@ -177,6 +177,8 @@ for (int k = 1; k <= n; k++) {
 }
 ```
 
+### 传递闭包
+
 Floyd 可用于求解传递闭包，即全源可达性。特别地，使用 `bitset` 优化，时间复杂度：$O(\frac{n^3}{w})$。
 
 ```cpp
@@ -190,9 +192,44 @@ for (int k = 1; k <= n; k++) {
 
 注：Floyd 常数极小，$O(n^3)$ 的时间复杂度可以通过 $n=1000$ 的数据。
 
+### 最小环：
+
+```cpp
+auto get_path = [&](auto self, int x, int y) -> void {
+    if (!pos[x][y])
+        return;
+    auto now = pos[x][y];
+    self(self, x, now);
+    ans.push_back(now);
+    self(self, now, y);
+};
+for (int k = 1; k <= n; k++) {
+    for (int i = 1; i < k; i++) {
+        for (int j = i + 1; j < k; j++) {
+            if (dis[i][j] + Dis[j][k] < minn - Dis[k][i]) {
+                minn = dis[i][j] + Dis[j][k] + Dis[k][i];
+                ans.clear();
+                ans.push_back(k);
+                ans.push_back(i);
+                get_path(get_path, i, j);
+                ans.push_back(j);
+            }
+        }
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (dis[i][j] > dis[i][k] + dis[k][j]) {
+                dis[i][j] = dis[i][k] + dis[k][j];
+                pos[i][j] = k;
+            }
+        }
+    }
+}
+```
+
+时间复杂度：$O(n^3)$。
+
 ## Johnson 全源最短路
-
-
 
 
 ## 不同最短路算法的比较
