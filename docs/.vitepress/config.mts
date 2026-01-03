@@ -67,6 +67,7 @@ export default defineConfig({
             { text: '分块', link: '/data structure/block-balance'},
             { text: 'cdq 分治', link: '/data structure/cdq'},
             { text: '整体二分', link: '/data structure/dfs'},
+            { text: '珂朵莉树', link: '/data structure/odt'},
           ]
         }
       ],
