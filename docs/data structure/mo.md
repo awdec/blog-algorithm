@@ -58,14 +58,10 @@ void solve() {
     sort(q + 1, q + 1 + m);
     int l = 1, r = 0;
     for (int i = 1; i <= m; i++) {
-        while (q[i].l < l)
-            add(--l);
-        while (q[i].l > l)
-            del(l++);
-        while (q[i].r < r)
-            del(r--);
-        while (q[i].r > r)
-            add(++r);
+        while (q[i].l < l) add(--l);
+        while (q[i].r > r) add(++r);
+        while (q[i].l > l) del(l++);
+        while (q[i].r < r) del(r--);
         /*
         	ans[q[i].id] = ...
         */

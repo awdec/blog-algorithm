@@ -76,6 +76,7 @@ export default defineConfig({
         {
           text: '字符串',
           items: [
+            { text: '字符串处理', link: '/string/string'},
             { text: 'Border', link: '/string/border'},
             { text: 'Kmp', link: '/string/kmp'},
             { text: 'Hash', link: '/string/hash'},
