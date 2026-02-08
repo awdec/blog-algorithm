@@ -5,7 +5,7 @@
 </style>
 
 
-<h1><center>一些有趣的库函数</center></h1>
+<h1><center>一些有用的库函数</center></h1>
 
 ## GCC、Clang 等编译器提供的非 cpp 标准函数
 
@@ -42,3 +42,18 @@ countr_zero 可以传入 $0$，返回对应类型的总位数。
 以上函数参数均为无符号整数，自动识别是 unsigned int 还是 unsigned long long。
 
 以上函数时间复杂度均为 $O(1)$，效率与 __buil 相当。
+
+## mt19937
+
+```cpp
+mt19937 rng(time(nullptr));
+
+int rnd(int l, int r) {
+    uniform_int_distribution<int> dist(l, r);
+    int num = dist(rng);
+    return num;
+}
+
+vector<int> a;
+shuffle(a.begin(), a.end(), rng);
+```

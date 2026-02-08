@@ -133,7 +133,7 @@ export default defineConfig({
             {text: '哈希', link: '/other/hashing'},
             {text: '优秀的编码习惯', link: '/other/constant'},
             {text: '范数', link: '/other/distance'},
-            {text: '一些有趣的库函数', link: '/other/functions'},
+            {text: '一些有用的库函数', link: '/other/functions'},
           ]
         }
       ],
