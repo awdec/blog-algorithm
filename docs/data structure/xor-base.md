@@ -84,14 +84,14 @@ void build(int n, vector<int> &t) {
 - 空间复杂度：$O(w)$
 
 ```cpp
-void insert(int x) {
+void insert(int v) {
     for (int i = 63; i >= 0; i--) {
-        if ((x >> i) & 1) {
+        if ((v >> i) & 1) {
             if (!a[i]) {
-                a[i] = x;
+                a[i] = v;
                 break;
-            } else{
-                x ^= a[i];
+            } else {
+                v ^= a[i];
             }
         }
     }
@@ -166,5 +166,70 @@ int query_kth(int k) {
             res ^= a[m - i].to_ullong();
     }
     return res;
+}
+```
+
+## 解的构造
+
+对于线性基找出的解，要还原出其在原集合中由哪些数组成。
+
+### set 维护
+
+对于线性基过程中的每一个行向量，直接用一个 `set` 维护其由原序列中哪些数异或得到。
+
+时间复杂度：$O(nw^2\log w)$。
+
+
+```cpp
+void insert(int x, int v) {
+    set<int> now;
+    now.insert(x);
+    for (int i = 63; i >= 0; i--) {
+        if ((v >> i) & 1) {
+            if (!a[i]) {
+                a[i] = v;
+                pos[i] = now;
+                break;
+            } else {
+                v ^= a[i];
+                for (auto u : pos[i]) {
+                    if (now.count(u))
+                        now.erase(u);
+                    else
+                        now.insert(u);
+                }
+            }
+        }
+    }
+}
+```
+
+时间复杂度证明在于线性基维护过程中，每个行向量最多由 $w$ 原集合中的数异或得到。
+
+### bitset 维护
+
+因为每个行向量由且仅有它前面的行向量异或得到，而行向量插入线性基后不会被覆盖，所以可以用一个 `bitset` 存储每一个行向量由当前哪些行向量异或得到，同时存下每个行向量插入线性基时初始对应的值。
+
+还原元素时，把那些行向量的 `bitset` 异或起来，再把最终需要的行向量的初始值异或得到最后的解。
+
+时间复杂度：$O(nw)$。
+
+```cpp
+void insert(int x, int v) {
+    bitset<30> now;
+    for (int i = 63; i >= 0; i--) {
+        if ((v >> i) & 1) {
+            if (!a[i]) {
+                a[i] = v;
+                mp[i] = x;
+                pos[i] = now;
+                pos[i].set(i);
+                break;
+            } else {
+                v ^= a[i];
+                now ^= pos[i];
+            }
+        }
+    }
 }
 ```

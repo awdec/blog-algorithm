@@ -23,6 +23,8 @@ for (auto [u, v, w] : edge) {
 
 ## Prim
 
+### 朴素维护
+
 Prim 本质上求的是一棵根向叶子的有向树，用 $dis_x$ 表示 $x$ 向父节点的边权。
 
 每次扩展一个 $dis$ 最小的叶子，朴素维护时间复杂度：$O(n^2+m)$。
@@ -42,6 +44,8 @@ for (int _ = 1; _ < n; _++) {
     }
 }
 ```
+
+### 堆优化
 
 时间复杂度同 Dijkstra，使用二叉堆维护 $O((n+m)\log m)$。
 
@@ -66,41 +70,61 @@ for (int _ = 1; _ < n; _++) {
 }
 ```
 
+### 其他数据结构优化
+
+容易发现，堆优化 Prim 只是用二叉堆优化了取最小值的过程。
+
+那么同样地，完全可以使用任意其他可以维护最值的数据结构来优化 Prim，如线段树、`set` 等。
+
+同时，根据其他数据结构的功能，还可以扩展出其他存图方式，本质上只要能维护 `dis` 数组即可。
+
 ## Boruvka
 
 每次对于每个连通块，向外找到最短的一条边连接。每个连通块都会向外连一条边，最坏情况下连通块数量也会 $\times\frac{1}{2}$，也就是最多进行 $O(\log n)$ 轮，每轮遍历所有边，时间复杂度：$O((n+m)\log n)$。
 
 ```cpp
-bool Better(int x, int y) {
-    if (!y)
-        return 1;
-    if (edge[x].w != edge[y].w)
-        return edge[x].w < edge[y].w;
-    return x < y;
-}
-while (flag) {
-    flag = 0;
-    memset(best, 0, sizeof best);
-    for (int i = 1; i <= m; i++) {
-        if (vis[i])
-            continue;
-        int x = dsu.find(edge[i].u), y = dsu.find(edge[i].v);
-        if (x == y)
-            continue;
-        if (Better(i, best[x]))
-            best[x] = i;
-        if (Better(i, best[y]))
-            best[y] = i;
-    }
+int cnt = n - 1;
+dsu.init(n);
+vector<bool> vis(n + 1);
+while (cnt) {
     for (int i = 1; i <= n; i++) {
-        if (best[i] && !vis[best[i]]) {
-            flag = 1;
-            vis[best[i]] = 1;
-            dsu.merge(edge[best[i]].u, edge[best[i]].v);
+        vector<int> tmp;
+        vec[i] = tmp;
+    }
+    for (int i = 1; i <= n; i++) vec[dsu.find(i)].push_back(i);
+    for (int i = 1; i <= n; i++) {
+        if (vec[i].empty()) continue;
+        for (auto u : vec[i]) {
+            vis[u] = 1;
+        }
+        int minn = inf;
+        pii mini = {0, 0};
+        for (auto u : vec[i]) {
+            for (auto [v, w] : p[u]) {
+                if (vis[v]) continue;
+                if (minn > w) {
+                    minn = w;
+                    mini = {u, v};
+                }
+            }
+        }
+        if (minn == inf) {
+            // 无解
+            return;
+        }
+        if (!dsu.same(mini.first, mini.second)) {
+            dsu.merge(mini.first, mini.second);
+            cnt--;
+        }
+
+        for (auto u : vec[i]) {
+            vis[u] = 0;
         }
     }
 }
 ```
+
+Boruvak 本质上只要找到当前每个连通块向外的最小边即可，如果条件允许，也不见得一定要遍历所有边。
 
 ## 次小生成树
 

@@ -365,9 +365,9 @@ void update(int p, int &q, int l, int r, int x) {
         return;
     }
     if (x <= mid)
-        rs(q) = rs(p), update(ls(p), ls(q), l, mid, x, v);
+        rs(q) = rs(p), update(ls(p), ls(q), l, mid, x);
     else
-        ls(q) = ls(p), update(rs(p), rs(q), mid + 1, r, x, v);
+        ls(q) = ls(p), update(rs(p), rs(q), mid + 1, r, x);
     push_up(q);
 }
 int query(int p, int l, int r, int x) {
@@ -442,7 +442,6 @@ void split(int p, int &q, int k) {
         split(ls(p), ls(q), k);
     tr[q].sum = tr[p].sum - k;
     tr[p].sum = k;
-    return;
 }
 ```
 
