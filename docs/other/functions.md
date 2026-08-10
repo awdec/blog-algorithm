@@ -1,9 +1,3 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 
 <h1><center>一些有用的库函数</center></h1>
 
@@ -33,15 +27,15 @@ __builtin_ctz/__builtin_clz 中传入 $0$ 是未定义行为。
 | countl_zero | 统计 $x$ 的二进制中开头 $0$ 的个数                        |
 | countr_one  | 统计 $x$ 的二进制中末尾 $1$ 的个数                        |
 | countl_one  | 统计 $x$ 的二进制中开头 $1$ 的个数                        |
-| bit_width   | 对于 $x$ 计算最小的 $n$ 满足 $2^n>x$，$x=0$ 时返回 $0$    |
-| bit_floor   | 对于 $x$ 计算最大的 $n$ 满足 $2^n\le x$，$x=0$ 时返回 $0$ |
-| bit_ceil    | 对于 $x$ 计算最小的 $n$ 满足 $2^n\ge x$                   |
+| bit_width   | 返回表示 $x$ 所需的位数，即满足 $2^n>x$ 的最小非负整数 $n$；$x=0$ 时返回 $0$ |
+| bit_floor   | 返回不大于 $x$ 的最大 2 的幂；$x=0$ 时返回 $0$             |
+| bit_ceil    | 返回不小于 $x$ 的最小 2 的幂；$x=0$ 时返回 $1$             |
 
-countr_zero 可以传入 $0$，返回对应类型的总位数。
+`countr_zero` 和 `countl_zero` 可以传入 $0$，返回对应类型的总位数。例如 `bit_width(13u) == 4`、`bit_floor(13u) == 8`、`bit_ceil(13u) == 16`。
 
-以上函数参数均为无符号整数，自动识别是 unsigned int 还是 unsigned long long。
+以上函数模板只接受无符号整数类型，不应把有符号整数直接传入。`bit_ceil(x)` 还要求结果能够由参数类型表示，否则行为未定义。
 
-以上函数时间复杂度均为 $O(1)$，效率与 __buil 相当。
+以上函数时间复杂度均为 $O(1)$，效率通常与对应的编译器内建函数相当。
 
 ## mt19937
 
@@ -69,10 +63,14 @@ shuffle(a.begin(), a.end(), rng);
 nth_element(first, nth, last);
 // 自定义比较规则
 nth_element(first, nth, last, cmp);
+// 第 k 小，k 从 1 开始
+nth_element(nums.begin(), nums.begin() + k - 1, nums.end());
 // 自定义降序比较规则
 nth_element(nums.begin(), nums.begin() + k - 1, nums.end(),
-                [](int a, int b) { return a > b; });
+            [](int a, int b) { return a > b; }); // 第 k 大
 ```
 :::
 
-$O(n)$ 找到第 $k$ 小。
+执行后，`nth` 指向的元素与完整排序后该位置的元素相同；`[first, nth)` 中的元素按比较规则不会排在 `nth` 之后，`(nth, last)` 中的元素不会排在它之前，但两侧各自都不保证有序。
+
+`nth_element` 平均使用 $O(n)$ 次比较即可找到顺序统计量。默认升序规则下 `nums[k-1]` 是第 $k$ 小；使用上面的降序比较器时则是第 $k$ 大。

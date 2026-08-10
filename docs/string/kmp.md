@@ -1,9 +1,3 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>Kmp</center></h1>
 
 ## 字符串匹配：
@@ -32,7 +26,7 @@ void kmp(string &a, string &b) { // a 是文本串 b 是模式串，在 a 上找
 ```
 :::
 
-​时间复杂度和求 Border 类似，$O(\max\{|a|,|b|\})$。
+​时间复杂度和求 Border 类似，$O(|a|+|b|)$。
 
 ## 扩展 Kmp（Z 函数）：
 
@@ -89,6 +83,7 @@ void exkmp(string &a, string &b) {
         if (i + Z[i] - 1 > r)
             l = i, r = i + Z[i] - 1;
     }
+    Z[1] = 0;
     while (1 + Z[1] <= m && 1 + Z[1] <= n && b[1 + Z[1]] == a[1 + Z[1]])
         ++Z[1];
 }
@@ -97,10 +92,10 @@ void exkmp(string &a, string &b) {
 
 ## Kmp 自动机 / Border 树（失配树）：
 
-​对于一个字符串 $s$，它的 Border 树共有 $n+1$ 个点：$0,1,...,n$。点 $i$ 的父节点为 $border_i$。
+​对于一个字符串 $s$，它的 Border 树共有 $n+1$ 个点：$0,1,...,n$。点 $i$ 的父节点 $border_i$ 表示前缀 $pre_i$ 的最长真 Border 长度。节点 $0$ 表示空前缀，只作为树根和无 Border 时的哨兵，不计入非空真 Border。
 
-- 前缀 $pre_i$ 的所有 Border：节点 $i$ 到根的链。
-- 有长度为 $x$ 的 Border 的前缀：$x$ 的子树。
-- 两个前缀 $p,q$ 的公共 Border：$LCA(p,q)$。
+- 前缀 $pre_i$ 的所有真 Border：从节点 $border_i$ 到根的链，其中不计节点 $0$。
+- 对于 $x>0$，以长度 $x$ 为真 Border 的前缀：节点 $x$ 的所有真后代，不包括节点 $x$ 自身。
+- 对于 $p,q>0$，两个前缀的最长公共真 Border：$LCA(border_p,border_q)$；结果为 $0$ 表示不存在非空公共真 Border。
 
 也可以认为是只有一个串的 AC 自动机。

@@ -1,9 +1,3 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>Tarjan</center></h1>
 
 先简单介绍一下 dfs 生成树。
@@ -46,7 +40,7 @@ dfs 生成树在于更好地描述一个图，以往对于图问题的理解都�
 
 ### 定义：
 
-强连通：任意两个结点连通。
+强连通：在有向图中，任意两个结点 $u,v$ 都满足 $u$ 可达 $v$ 且 $v$ 可达 $u$。
 
 强连通分量：极大的强连通子图。
 
@@ -101,7 +95,7 @@ for (int i = 1; i <= n; i++) {
 
 - 一个点只属于一个 SCC。
 - SCC 缩点后是 DAG。
-- DAG 的拓扑排序就是 dfn 的逆序，参见 [dfs 版拓扑排序](https://www.luogu.com.cn/article/jx1hy56l)，所以缩点后的 DAG 拓扑序就是 SCC 编号的降序。
+- 一般 DAG 可以按 dfs 完成时间的逆序得到拓扑序，但不能直接使用首次访问时间 $dfn$ 的逆序。本文代码在 SCC 弹栈时递增编号；若原图存在一条跨 SCC 的边 $u\rightarrow v$，则 $num_u>num_v$。因此，SCC 编号的降序是缩点 DAG 的一个拓扑序，升序是逆拓扑序。
 
 ### 杂谈：
 
@@ -190,7 +184,7 @@ for (int i = 1; i <= n; i++) {
 
 点双连通分量统计时，需要在从儿子回溯时统计，不能在回溯割点的时候统计。
 
-对于 $(u,v)$，$low_v\le dfn_v$，若 $low_v<dfn_u$，则删除 $u$ 不会使 dfs 树变成两部分，所以只有 $low_v=dfn_u$ 或 $low_v=dfn_v$ 时，$u$ 是割点，将递归 $v$ 后栈中的点弹出形成一个点双连通分量。
+对于 dfs 树边 $(u,v)$，若 $low_v<dfn_u$，则 $v$ 的子树可以绕过 $u$ 到达 $u$ 的真祖先；若 $low_v\ge dfn_u$，则 $v$ 的子树无法绕过 $u$ 到达 $u$ 的父侧。此时将递归 $v$ 后栈中的点弹出，并加入 $u$，形成一个点双连通分量；当 $u$ 不是 dfs 树根时，$u$ 也是割点。注意 $low_v$ 可能严格处于 $dfn_u$ 与 $dfn_v$ 之间，不能只判断两个端点相等。
 
 若 $x$ 是 dfs 树的根需要特判，因为此时删除 $u$ 不会有父节点使得 dfs 树变成两部分。
 
@@ -201,6 +195,8 @@ for (int i = 1; i <= n; i++) {
 
 :::details 点击展开代码
 ```cpp
+// p[x] 存储 (to, eid)，同一条无向边的两个方向编号互为 eid ^ 1
+// y 表示进入 x 的边编号；dfs 树根没有父边，传入 -1
 void dfs(int x, int y, int root) {
     dfn[x] = low[x] = ++idx;
     if (x == root && p[x].empty()) {
@@ -209,13 +205,13 @@ void dfs(int x, int y, int root) {
     }
     q.push(x);
     int son = 0;
-    for (auto u : p[x]) {
-        if (u == y)
+    for (auto [u, eid] : p[x]) {
+        if (y != -1 && eid == (y ^ 1))
             continue;
         if (!dfn[u]) {
-            dfs(u, x, root);
+            dfs(u, eid, root);
             low[x] = min(low[x], low[u]);
-            if (low[u] == dfn[x] || low[u] == dfn[u]) {
+            if (low[u] >= dfn[x]) {
                 if (x != root)
                     cut[x] = 1;
                 id++;
@@ -239,7 +235,7 @@ void dfs(int x, int y, int root) {
 // 求完 VCC 后 q 不一定为空
 for (int i = 1; i <= n; i++)
     if (!dfn[i])
-        dfs(i, 0, i);
+        dfs(i, -1, i);
 ```
 :::
 
@@ -253,7 +249,7 @@ for (int i = 1; i <= n; i++)
 
 2-sat 是用于解决若干个或命题解的算法。
 
-有 $n$ 个命题 $c_i=a_{x_i}\lor a_{y_i}$，$a,b\in\{0,1\}$，求解 $c_i$ 全为真的解。
+有 $n$ 个布尔变量 $a_i$ 和 $m$ 个形如 $c_j=l_{x_j}\lor l_{y_j}$ 的约束，其中 $l$ 表示变量或其否定，求使所有 $c_j$ 都为真的解。
 
 2-sat 建边的本质是 $a\rightarrow b$ 的蕴含式，所以不局限于 $a\lor b$。
 
@@ -261,9 +257,9 @@ for (int i = 1; i <= n; i++)
 
 根据离散数学基础，易得：$a\lor b=\lnot a\rightarrow b\land\lnot b\rightarrow a$。
 
-用 $i$ 表示 $a_i$，$i+n$ 表示 $\lnot a_i$，那么建边 $(x_i+n,y_i)$ 表示 $a_{x_i+n}$ 为 $1$ 时 $a_{y_i}$ 为 $1$，$a_{x_i+n}$ 为 $0$ 时，$a_{y_i}$ 可 $1$ 可 $0$。建边 $(y_i+n,x_i)$ 同理。
+用 $i$ 表示 $a_i$，$i+n$ 表示 $\lnot a_i$。对于约束 $l_x\lor l_y$，分别建立 $\lnot l_x\rightarrow l_y$ 和 $\lnot l_y\rightarrow l_x$ 两条边。例如，$a_x\lor a_y$ 对应边 $(x+n,y)$ 和 $(y+n,x)$。
 
-那么可以发现，建出来的图，对于同一个强连通分量重的点，取值是相同的：
+那么可以发现，建出来的图中，同一个强连通分量中的点取值相同：
 - 如果有一个点为 $1$，易得走下去都是 $1$。
 - 反之就都是 $0$。
 
@@ -271,17 +267,19 @@ for (int i = 1; i <= n; i++)
 
 有解时，根据拓扑序，$u\rightarrow v$，$u$ 为 $1$ 时，$v$ 一定为 $1$，$u$ 为 $0$ 时 $v$ 可以为 $1/0$。
 
-特别地，$a$ 和 $\lnot a$ 必有一真一假，若 $\lnot a$ 的拓扑序更小，则 $\lnot a$ 为 $0$，$a$ 为 $1$。
-
 > 若存在边 $(a,b)$ 那么一定存在边 $(\lnot b,\lnot a)$
 
 > 若存在路径 $a\rightarrow b$ 那么一定存在路径 $\lnot b\rightarrow\lnot a$
 
-结合上述结论，可以发现，2-sat 建出来的图是一个很特殊的图。具体地，对于一个连通分量，一定存在一种划分方式，使得所有 $a$ 和 $\lnot a$ 会被划分至“左右”两侧。
+结合上述结论，每个 SCC 与其中所有文字取反后得到的 SCC 成对出现。本文 Tarjan 代码在 SCC 弹栈时递增编号，编号越小，在缩点 DAG 的正向拓扑序中越靠后。因此可以构造
 
-那么，对于 $\lnot a$ 的拓扑序小于 $a$，构造 $a=1,\lnot a=0$ 即可。
+$$
+a_i=[num_i<num_{i+n}].
+$$
 
-使用 Tarjan 维护强连通分量，时间复杂度：$O(n)$。
+也就是说，在 $a_i$ 与 $\lnot a_i$ 所属的两个 SCC 中，把正向拓扑序更靠后的文字取为真。若采用按正向拓扑序递增的 SCC 编号，以上不等号需要反向，不能脱离编号约定记忆真值方向。
+
+蕴含图有 $2n$ 个点和 $2m$ 条边，使用 Tarjan 求强连通分量并构造解的时间复杂度为 $O(n+m)$。
 
 
 ## 圆方树

@@ -5,8 +5,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lastUpdated: true,
-  
-  // base: "/blog-algorithm/",
+  base: '/',
   
   head: [
     ['link', { rel: 'icon', href: '/logo2.ico' }]
@@ -26,52 +25,50 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/' },
-      { text: '数据结构', link: '/data structure/home' },
-      { text: '字符串', link: '/string/home'},
+      { text: '数据结构', link: '/data-structure/binary-search-tree' },
+      { text: '字符串', link: '/string/string'},
       { 
         text: '数学', 
         items: [
-          {text: '数论', link: '/math/number theory/home'},
-          {text: '组合数学', link: '/math/combinatorial mathematics/home'},
-          {text: '杂项', link: '/math/other/home'},
+          {text: '数论', link: '/math/number-theory/prime'},
+          {text: '组合数学', link: '/math/combinatorics/sequence'},
         ]
         
       },
-      { text: '图论', link: '/graph/home'},
-      { text: '多项式', link: '/poly/home'},
-      { text: '计算几何', link: '/geometry/home'},
-      { text: '动态规划', link: '/dp/home'},
-      { text: '网络流', link: '/flow/home'},
-      { text: '杂项', link: '/other/home'},
+      { text: '图论', link: '/graph/shortest-path'},
+      { text: '多项式', link: '/poly/Generating-function'},
+      { text: '计算几何', link: '/geometry/model'},
+      { text: '动态规划', link: '/dp/bag'},
+      { text: '杂项', link: '/other/interval'},
     ],
 
     sidebar: {
-      '/data structure/': [
+      '/data-structure/': [
         {
           text: '数据结构',
           items: [
-            { text: '平衡树', link: '/data structure/binary-search-tree' },
-            { text: '线段树', link: '/data structure/segment-tree'},
-            { text: '树状数组', link: '/data structure/bit'},
-            { text: '树套树', link: '/data structure/tree-in-tree'},
-            { text: '并查集', link: '/data structure/dsu'},
-            { text: '堆', link: '/data structure/heap'},
-            { text: '动态树', link :'/data structure/lct'},
-            { text: '根号树', link: '/data structure/sqrt-tree'},
-            { text: '莫队', link: '/data structure/mo'},
-            { text: '树链剖分', link: '/data structure/tree-chain'},
-            { text: '点分治', link: '/data structure/tree-divide'},
-            { text: 'dsu on tree', link: '/data structure/dsu-on-tree'},
-            { text: '01 Trie', link: '/data structure/01-trie'},
-            { text: '线性基', link: '/data structure/xor-base'},
-            { text: '分块', link: '/data structure/block'},
-            { text: '树分块', link: '/data structure/block'},
-            { text: 'cdq 分治', link: '/data structure/cdq'},
-            { text: '整体二分', link: '/data structure/dfs'},
-            { text: '珂朵莉树', link: '/data structure/odt'},
-            { text: 'bitset', link: '/data structure/bitset'},
-            { text: '小波树', link: '/data structure/wavelet'},
-            { text: 'K-D Tree', link: '/data structure/kdtree'},
+            { text: '平衡树', link: '/data-structure/binary-search-tree' },
+            { text: '线段树', link: '/data-structure/segment-tree'},
+            { text: '树状数组', link: '/data-structure/bit'},
+            { text: '树套树', link: '/data-structure/tree-in-tree'},
+            { text: '并查集', link: '/data-structure/dsu'},
+            { text: '堆', link: '/data-structure/heap'},
+            { text: '动态树', link :'/data-structure/lct'},
+            { text: '根号树', link: '/data-structure/sqrt-tree'},
+            { text: '莫队', link: '/data-structure/mo'},
+            { text: '树链剖分', link: '/data-structure/tree-chain'},
+            { text: '点分治', link: '/data-structure/tree-divide'},
+            { text: 'dsu on tree', link: '/data-structure/dsu-on-tree'},
+            { text: '01 Trie', link: '/data-structure/01-trie'},
+            { text: '线性基', link: '/data-structure/xor-base'},
+            { text: '分块', link: '/data-structure/block'},
+            { text: '树分块', link: '/data-structure/tree-block'},
+            { text: 'cdq 分治', link: '/data-structure/cdq'},
+            { text: '整体二分', link: '/data-structure/parallel-binary-search'},
+            { text: '珂朵莉树', link: '/data-structure/odt'},
+            { text: 'bitset', link: '/data-structure/bitset'},
+            { text: '小波树', link: '/data-structure/wavelet'},
+            { text: 'K-D Tree', link: '/data-structure/kdtree'},
           ]
         }
       ],
@@ -94,27 +91,27 @@ export default defineConfig({
         }
       ],
 
-      '/math/number theory/': [
+      '/math/number-theory/': [
         {
           text: '数论',
           items: [
-            { text: '质数', link: '/math/number theory/prime'},
-            { text: '初等数论函数', link: '/math/number theory/function'},
-            { text: 'Gcd', link: '/math/number theory/gcd'},
-            { text: '取模运算', link: '/math/number theory/mod1'},
-            { text: '同余', link: '/math/number theory/mod'},
-            { text: 'Dirichlet 前缀和', link: '/math/number theory/dirichlet'},
-            { text: '筛法', link: '/math/number theory/sieve'},
+            { text: '质数', link: '/math/number-theory/prime'},
+            { text: '初等数论函数', link: '/math/number-theory/function'},
+            { text: 'Gcd', link: '/math/number-theory/gcd'},
+            { text: '取模运算', link: '/math/number-theory/mod1'},
+            { text: '同余', link: '/math/number-theory/mod'},
+            { text: 'Dirichlet 前缀和', link: '/math/number-theory/dirichlet'},
+            { text: '筛法', link: '/math/number-theory/sieve'},
           ]
         }
       ],
 
-      '/math/combinatorial mathematics/': [
+      '/math/combinatorics/': [
         {
           text: '组合数学',
           items: [
-            { text: '组合数列', link: '/math/combinatorial mathematics/sequence'},
-            { text: '反演', link: '/math/combinatorial mathematics/transfer'},
+            { text: '组合数列', link: '/math/combinatorics/sequence'},
+            { text: '反演', link: '/math/combinatorics/transfer'},
             
           ]
         }

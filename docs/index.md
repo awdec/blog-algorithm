@@ -13,9 +13,6 @@ hero:
     - theme: brand
       text: welcome
       link: /
-    - theme: alt
-      text: 关于我
-      link: /about
 features:
   - icon: 🛠️
     title: Simple and minimal, always

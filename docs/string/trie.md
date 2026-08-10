@@ -1,9 +1,3 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>Trie</center></h1>
 
 ​字典树，用于维护一个字符串集合，查询字符串。

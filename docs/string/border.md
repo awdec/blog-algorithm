@@ -1,14 +1,10 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>Border</center></h1>
 
 ​Border 指：字符串的公共前后缀。
 
 ​根据情境的不同，Border 可以指字符串、字符串的长度，也可以指最长的字符串、最长的字符串长度，​Border 可以是其本身，也可以不含其本身。具体含义需要结合场景分析。
+
+通常情况下，Border 均指真 Border，即不含其本身。
 
 ## 周期和循环节：
 

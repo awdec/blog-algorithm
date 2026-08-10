@@ -1,9 +1,3 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>ACAM</center></h1>
 
 即 ​AC 自动机。
@@ -117,7 +111,7 @@ for (int i = 0; i < 26; i++) {
 // 匹配
 int now = 0;
 for(auto u : s){
-    now = trie.son[j][u - 'a'];
+    now = trie.son[now][u - 'a'];
 }
 ```
 :::

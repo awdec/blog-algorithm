@@ -1,9 +1,3 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>计算几何全家桶</center></h1>
 
 来源：牛客计算几何算法课程——陈俊杰

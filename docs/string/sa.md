@@ -1,16 +1,10 @@
-<style>
- body {
-  font-family: "楷体"
-}
-</style>
-
 <h1><center>SA</center></h1>
 
 即：后缀数组。
 
 ​SA 和 SAM 相似，用于识别子串。
 
-SA 将子串表示成某个后缀的前缀，SAN 则是将子串表示成某个前缀的后缀。
+SA 将子串表示成某个后缀的前缀，SAM 则是将子串表示成某个前缀的后缀。
 
 ​后缀排序是指将所有后缀 $suf[i]$ 看作独立的串，放在一起按照字典序进行升序排序。 
 
@@ -88,8 +82,11 @@ struct SA {
     void get_h() {
         int k = 0;
         for (int i = 1; i <= n; i++) {
-            if (!rk[i])
+            if (rk[i] == 1) {
+                h[1] = 0;
+                k = 0;
                 continue;
+            }
             if (k)
                 --k;
             while (s[i + k] == s[sa[rk[i] - 1] + k])
