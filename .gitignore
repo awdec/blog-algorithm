@@ -6,3 +6,6 @@ cache
 .cache
 .temp
 *.local
+.book-build/
+.book-tools/
+tmp/pdfs/

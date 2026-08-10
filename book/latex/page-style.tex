@@ -1,0 +1,12 @@
+% Mirrored headers, outside page numbers, and empty verso pages.
+\usepackage[automark,headsepline=.35pt]{scrlayer-scrpage}
+\clearpairofpagestyles
+\automark[chapter]{part}
+\lehead*{\small\sffamily\leftmark}
+\rohead*{\small\sffamily\rightmark}
+\lefoot*{\small\pagemark}
+\rofoot*{\small\pagemark}
+\renewcommand*{\chapterpagestyle}{plain.scrheadings}
+\KOMAoptions{cleardoublepage=empty}
+\setkomafont{pageheadfoot}{\normalfont}
+\setkomafont{pagenumber}{\sffamily}

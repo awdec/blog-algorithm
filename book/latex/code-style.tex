@@ -1,0 +1,30 @@
+% Readable, page-breakable code blocks with safe wrapping for narrow B5 pages.
+\usepackage{fvextra}
+\usepackage{xcolor}
+\definecolor{BookCodeBackground}{HTML}{F4F5F6}
+\definecolor{BookCodeRule}{HTML}{C9CDD2}
+
+\fvset{
+  breaklines=true,
+  breakanywhere=true,
+  breaksymbolleft={},
+  breaksymbolright=\raisebox{0.2ex}{\tiny\ensuremath{\hookrightarrow}},
+  fontsize=\footnotesize,
+  baselinestretch=0.94,
+  tabsize=2
+}
+
+\AtBeginDocument{%
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{%
+    commandchars=\\\{\},
+    breaklines=true,
+    breakanywhere=true,
+    breaksymbolleft={},
+    breaksymbolright=\raisebox{0.2ex}{\tiny\ensuremath{\hookrightarrow}},
+    fontsize=\footnotesize,
+    baselinestretch=0.94,
+    tabsize=2
+  }%
+}
+
+\BeforeBeginEnvironment{Shaded}{\Needspace{5\baselineskip}}

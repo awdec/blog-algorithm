@@ -16,6 +16,7 @@
 - [VitePress](https://vitepress.dev/)
 - Markdown
 - markdown-it-mathjax3
+- [Quarto](https://quarto.org/) + LuaLaTeX（PDF 书籍排版）
 
 ## 本地运行
 
@@ -44,6 +45,68 @@ npm run docs:build
 ```bash
 npm run docs:preview
 ```
+
+## PDF 书籍导出
+
+网站和 PDF 共同使用 `docs/**/*.md` 作为内容源，并共同读取
+[`book/book-order.json`](./book/book-order.json) 确定发布状态和章节顺序。
+PDF 专用转换只写入临时目录 `.book-build/`，不会批量改写博客原文。
+
+当前支持两种输出：
+
+| 版本 | 页面尺寸 | 用途 |
+|---|---:|---|
+| B5 书籍版 | 176 × 250 mm | 胶装、成书和长期收藏 |
+| A4 打印版 | 210 × 297 mm | 普通打印机、活页装订和宽代码阅读 |
+
+修改现有文档后，一条命令即可重新生成并验证两个版本：
+
+```bash
+npm run book:pdf
+```
+
+Windows PowerShell 如果受到脚本执行策略限制，可改用：
+
+```powershell
+npm.cmd run book:pdf
+```
+
+该命令会执行 Markdown 与资源预处理、B5/A4 排版，并检查纸张尺寸、元数据、
+书签、字体嵌入、中文文本、安全对象和页面边界。任一检查失败时，命令返回失败，
+不会把有问题的文件当作正式成品。
+
+也可以分别执行：
+
+```bash
+npm run book:check
+npm run book:pdf:b5
+npm run book:pdf:a4
+npm run book:verify
+```
+
+正式输出位于：
+
+```text
+output/pdf/algorithm-notes-b5.pdf
+output/pdf/algorithm-notes-a4.pdf
+```
+
+修改已收录章节会自动进入下一次构建；新增、删除或重命名章节时，需要同步更新
+`book/book-order.json`。书目配置会同时驱动 VitePress 导航和 PDF 目录，路径不存在、
+大小写不一致、图片缺失或存在不可转换语法时会明确报错。
+
+### PDF 构建环境
+
+当前电脑上的 Quarto 与 TinyTeX 优先从项目内的 `.book-tools/` 使用，npm 转换依赖
+安装在项目的 `node_modules/`。`.book-tools/` 和 `.book-build/` 均被 Git 忽略，
+因此重新克隆到其他电脑后仍需准备相应工具。
+
+Node.js、FFmpeg、PDF 验证所用的 Python 环境以及 Windows 字体属于系统或用户级环境，
+并非全部封装在仓库中。具体工具链版本、资源静态化策略和环境变量说明见
+[`book/README.md`](./book/README.md)。
+
+打印时建议选择“双面、长边翻转、实际大小 100%”，不要启用“适合页面”。为保证
+篇章从右页开始，成品中会有少量无页眉页码的偶数空白页，这是双面书籍排版的正常留白。
 
 ## GitHub Pages 部署
 
@@ -86,6 +149,14 @@ base: '/blog-algorithm/'
 │   ├── poly/                # 多项式
 │   ├── public/              # 静态资源
 │   └── string/              # 字符串
+├── book/
+│   ├── book-order.json      # 网站与 PDF 共用的书目顺序
+│   ├── latex/               # LuaLaTeX 书籍模板
+│   └── README.md            # PDF 构建与打印说明
+├── scripts/
+│   ├── build-book.mjs       # 预处理并生成 B5/A4 PDF
+│   └── verify-book.mjs      # PDF 结构和页面边界验证
+├── output/pdf/              # 最终 PDF 输出
 ├── package.json
 ├── package-lock.json
 ├── CNAME                    # 域名记录；Actions 部署以 Pages 设置为准

@@ -2,12 +2,18 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs && node scripts/generate-redirects.mjs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "book:check": "node scripts/build-book.mjs --check",
+    "book:pdf:b5": "node scripts/build-book.mjs --format b5",
+    "book:pdf:a4": "node scripts/build-book.mjs --format a4",
+    "book:pdf": "node scripts/build-book.mjs --format all && node scripts/verify-book.mjs",
+    "book:verify": "node scripts/verify-book.mjs"
   },
   "dependencies": {
     "vitepress": "^1.6.3"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "markdown-it-mathjax3": "^4.3.2"
   }
 }

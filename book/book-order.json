@@ -1,0 +1,392 @@
+{
+  "book": {
+    "title": "awdec 算法笔记",
+    "subtitle": "算法与理论整理",
+    "author": "awdec",
+    "language": "zh-CN",
+    "version": "2026-08",
+    "buildDate": "2026-08-11"
+  },
+  "parts": [
+    {
+      "id": "data-structure",
+      "title": "数据结构",
+      "chapters": [
+        {
+          "title": "平衡树",
+          "file": "data-structure/binary-search-tree.md",
+          "status": "published"
+        },
+        {
+          "title": "线段树",
+          "file": "data-structure/segment-tree.md",
+          "status": "published"
+        },
+        {
+          "title": "树状数组",
+          "file": "data-structure/bit.md",
+          "status": "published"
+        },
+        {
+          "title": "树套树",
+          "file": "data-structure/tree-in-tree.md",
+          "status": "published"
+        },
+        {
+          "title": "并查集",
+          "file": "data-structure/dsu.md",
+          "status": "published"
+        },
+        {
+          "title": "堆",
+          "file": "data-structure/heap.md",
+          "status": "published"
+        },
+        {
+          "title": "动态树",
+          "file": "data-structure/lct.md",
+          "status": "published"
+        },
+        {
+          "title": "根号树",
+          "file": "data-structure/sqrt-tree.md",
+          "status": "published"
+        },
+        {
+          "title": "莫队",
+          "file": "data-structure/mo.md",
+          "status": "published"
+        },
+        {
+          "title": "树链剖分",
+          "file": "data-structure/tree-chain.md",
+          "status": "published"
+        },
+        {
+          "title": "点分治",
+          "file": "data-structure/tree-divide.md",
+          "status": "published"
+        },
+        {
+          "title": "dsu on tree",
+          "file": "data-structure/dsu-on-tree.md",
+          "status": "published"
+        },
+        {
+          "title": "01 Trie",
+          "file": "data-structure/01-trie.md",
+          "status": "published"
+        },
+        {
+          "title": "线性基",
+          "file": "data-structure/xor-base.md",
+          "status": "published"
+        },
+        {
+          "title": "cdq 分治",
+          "file": "data-structure/cdq.md",
+          "status": "published"
+        },
+        {
+          "title": "整体二分",
+          "file": "data-structure/parallel-binary-search.md",
+          "status": "published"
+        },
+        {
+          "title": "珂朵莉树",
+          "file": "data-structure/odt.md",
+          "status": "published"
+        },
+        {
+          "title": "bitset",
+          "file": "data-structure/bitset.md",
+          "status": "published"
+        },
+        {
+          "title": "小波树",
+          "file": "data-structure/wavelet.md",
+          "status": "published"
+        },
+        {
+          "title": "K-D Tree",
+          "file": "data-structure/kdtree.md",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "id": "string",
+      "title": "字符串",
+      "chapters": [
+        {
+          "title": "字符串处理",
+          "file": "string/string.md",
+          "status": "published"
+        },
+        {
+          "title": "Border",
+          "file": "string/border.md",
+          "status": "published"
+        },
+        {
+          "title": "Kmp",
+          "file": "string/kmp.md",
+          "status": "published"
+        },
+        {
+          "title": "Hash",
+          "file": "string/hash.md",
+          "status": "published"
+        },
+        {
+          "title": "Manacher",
+          "file": "string/manacher.md",
+          "status": "published"
+        },
+        {
+          "title": "Trie",
+          "file": "string/trie.md",
+          "status": "published"
+        },
+        {
+          "title": "ACAM",
+          "file": "string/acam.md",
+          "status": "published"
+        },
+        {
+          "title": "PAM",
+          "file": "string/pam.md",
+          "status": "published"
+        },
+        {
+          "title": "SAM",
+          "file": "string/sam.md",
+          "status": "published"
+        },
+        {
+          "title": "SA",
+          "file": "string/sa.md",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "title": "数学",
+      "groups": [
+        {
+          "id": "number-theory",
+          "title": "数论",
+          "chapters": [
+            {
+              "title": "质数",
+              "file": "math/number-theory/prime.md",
+              "status": "published"
+            },
+            {
+              "title": "初等数论函数",
+              "file": "math/number-theory/function.md",
+              "status": "published"
+            },
+            {
+              "title": "Gcd",
+              "file": "math/number-theory/gcd.md",
+              "status": "published"
+            },
+            {
+              "title": "取模运算",
+              "file": "math/number-theory/mod1.md",
+              "status": "published"
+            },
+            {
+              "title": "同余",
+              "file": "math/number-theory/mod.md",
+              "status": "published"
+            },
+            {
+              "title": "Dirichlet 前缀和",
+              "file": "math/number-theory/dirichlet.md",
+              "status": "published"
+            },
+            {
+              "title": "筛法",
+              "file": "math/number-theory/sieve.md",
+              "status": "published"
+            }
+          ]
+        },
+        {
+          "id": "combinatorics",
+          "title": "组合数学",
+          "chapters": [
+            {
+              "title": "组合数列",
+              "file": "math/combinatorics/sequence.md",
+              "status": "published"
+            },
+            {
+              "title": "反演",
+              "file": "math/combinatorics/transfer.md",
+              "status": "published"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "graph",
+      "title": "图论",
+      "chapters": [
+        {
+          "title": "最短路",
+          "file": "graph/shortest-path.md",
+          "status": "published"
+        },
+        {
+          "title": "最小生成树",
+          "file": "graph/mst.md",
+          "status": "published"
+        },
+        {
+          "title": "二分图",
+          "file": "graph/bipartite.md",
+          "status": "published"
+        },
+        {
+          "title": "Tarjan",
+          "file": "graph/tarjan.md",
+          "status": "published"
+        },
+        {
+          "title": "环计数问题",
+          "file": "graph/circle.md",
+          "status": "published"
+        },
+        {
+          "title": "欧拉路",
+          "file": "graph/euler.md",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "id": "poly",
+      "title": "多项式",
+      "chapters": [
+        {
+          "title": "基础-多项式全家桶",
+          "file": "poly/poly1.md",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "id": "geometry",
+      "title": "计算几何",
+      "chapters": [
+        {
+          "title": "计算几何全家桶",
+          "file": "geometry/model.md",
+          "status": "published"
+        },
+        {
+          "title": "计算几何基础概念",
+          "file": "geometry/base.md",
+          "status": "published"
+        },
+        {
+          "title": "极角序",
+          "file": "geometry/jijiao.md",
+          "status": "published"
+        },
+        {
+          "title": "凸包",
+          "file": "geometry/tubao.md",
+          "status": "published"
+        },
+        {
+          "title": "闵可夫斯基和",
+          "file": "geometry/minkowski.md",
+          "status": "published"
+        },
+        {
+          "title": "半平面交",
+          "file": "geometry/half.md",
+          "status": "published"
+        },
+        {
+          "title": "旋转卡壳",
+          "file": "geometry/rotate.md",
+          "status": "published"
+        },
+        {
+          "title": "扫描线",
+          "file": "geometry/scan.md",
+          "status": "published"
+        },
+        {
+          "title": "圆",
+          "file": "geometry/circle.md",
+          "status": "published"
+        },
+        {
+          "title": "基础三维几何",
+          "file": "geometry/3d.md",
+          "status": "published"
+        },
+        {
+          "title": "杂项",
+          "file": "geometry/other.md",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "id": "dp",
+      "title": "动态规划",
+      "chapters": [
+        {
+          "title": "背包 dp",
+          "file": "dp/bag.md",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "杂项",
+      "chapters": [
+        {
+          "title": "区间变换",
+          "file": "other/interval.md",
+          "status": "published"
+        },
+        {
+          "title": "树同构",
+          "file": "other/tree-hash.md",
+          "status": "published"
+        },
+        {
+          "title": "哈希",
+          "file": "other/hashing.md",
+          "status": "published"
+        },
+        {
+          "title": "优秀的编码习惯（卡常）",
+          "file": "other/constant.md",
+          "status": "published"
+        },
+        {
+          "title": "范数",
+          "file": "other/distance.md",
+          "status": "published"
+        },
+        {
+          "title": "一些有用的库函数",
+          "file": "other/functions.md",
+          "status": "published"
+        }
+      ]
+    }
+  ]
+}

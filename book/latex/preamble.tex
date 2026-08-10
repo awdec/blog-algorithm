@@ -1,0 +1,33 @@
+% Shared LuaLaTeX setup for the printable book.
+\usepackage[UTF8,fontset=fandol,heading=true]{ctex}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{unicode-math}
+\usepackage{microtype}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage{etoolbox}
+
+\setmainfont{Latin Modern Roman}
+\setsansfont{Noto Sans SC}
+\setmonofont{Consolas}[Scale=MatchLowercase]
+\setmathfont{Latin Modern Math}
+\setCJKmainfont{FandolSong-Regular}[
+  BoldFont=FandolSong-Bold,
+  ItalicFont=FandolKai-Regular
+]
+\setCJKsansfont{Noto Sans SC}
+\setCJKmonofont{FandolFang-Regular}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+\graphicspath{{assets/}}
+
+\setkomafont{part}{\sffamily\bfseries\Huge}
+\setkomafont{chapter}{\sffamily\bfseries\huge}
+\setkomafont{section}{\sffamily\bfseries\Large}
+\setkomafont{subsection}{\sffamily\bfseries\large}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=1.2\baselineskip]{chapter}
